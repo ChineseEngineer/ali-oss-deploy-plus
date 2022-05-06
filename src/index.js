@@ -94,12 +94,15 @@ class aliOssDeployPlus {
     const files = resFiles.length > 0 ? resFiles : htmlFiles
     divider(`开始上传文件 \nfiles::: ${files.length}个`)
     const uploadQueue = []
+    const projectPath = this.proOpts.PROJECT
+      ? `${this.proOpts.ENTRY}/${this.proOpts.PROJECT}/${i.name}`
+      : `${this.proOpts.ENTRY}/${i.name}`
     files.forEach((i, index) => {
       uploadQueue.push(
         this.promiseLimit(
           () => this.client
           .put(
-            `${this.proOpts.ENTRY}/${this.proOpts.PROJECT}/${i.name}`,
+            projectPath,
             `${this.proOpts.targetDir}/${i.name}`
           )
           .then(
