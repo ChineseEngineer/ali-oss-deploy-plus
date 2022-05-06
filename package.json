@@ -1,8 +1,8 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "easy deploy to oss",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "dev": "nodemon index.js",
     "test": "nodemon test.js"
