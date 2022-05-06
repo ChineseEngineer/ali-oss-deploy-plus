@@ -1,0 +1,31 @@
+{
+  "name": "ali-oss-deploy-plus",
+  "version": "1.0.0",
+  "description": "easy deploy to oss",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "nodemon test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com"
+  },
+  "keywords": [
+    "ali",
+    "oss",
+    "deploy"
+  ],
+  "author": "EthanTian",
+  "license": "ISC",
+  "dependencies": {
+    "ali-oss": "^6.17.1",
+    "chalk": "^4.1.2",
+    "dayjs": "^1.11.1",
+    "glob": "^8.0.1",
+    "p-limit": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
