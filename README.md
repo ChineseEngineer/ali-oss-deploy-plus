@@ -21,7 +21,7 @@ const ossOpts = {
 const proOpts = {
   ENTRY: '', // 项目入口
   PROJECT: '', // 项目名称
-  targetDir, // 项目文件夹路径 ps: dist
+  targetDir: '', // 项目文件夹路径 ps: dist
   maxRetryTimes: 3, // 上传失败重试次数 默认3
   maxConcurrency: 100, // 上传最大并发数 默认100
 }
