@@ -152,7 +152,10 @@ class aliOssDeployPlus {
         }
       } else if (htmlFailedUploadQueue.length) {
         divider('上传html文件')
-        this.uploadFiles()
+        // 延迟2s更新 html文件
+        setTimeout(() => {
+          this.uploadFiles()
+        }, 2000)
       } else {
         divider(success(`当前版本发布成功：${currTime()} \ntotal：${this.resourceFiles.length}`));
         console.timeEnd('耗时')
