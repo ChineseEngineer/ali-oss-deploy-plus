@@ -4,7 +4,7 @@
 
 ```bash
 # 安装
-npm install ali-oss-deploy-plush
+npm install ali-oss-deploy-plus
 ```
 
 ```js

@@ -1,6 +1,6 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "easy deploy to oss",
   "main": "index.js",
   "scripts": {
