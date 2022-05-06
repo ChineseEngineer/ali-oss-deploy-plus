@@ -9,7 +9,7 @@ npm install ali-oss-deploy-plush
 
 ```js
 // 使用
-const aliOssDeployPlus = require('ali-oss-deploy-plush')
+const aliOssDeployPlus = require('ali-oss-deploy-plus')
 
 const ossOpts = {
   bucket: '',
