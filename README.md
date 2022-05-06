@@ -12,10 +12,10 @@ npm install ali-oss-deploy-plush
 const aliOssDeployPlus = require('ali-oss-deploy-plus')
 
 const ossOpts = {
-  bucket: '',
-  region: '',
-  accessKeyId: '',
-  accessKeySecret: '',
+  bucket: '', // 桶名称
+  region: '', // 区域
+  accessKeyId: '', // AK
+  accessKeySecret: '', // AS
   internal: true, // 默认内网传输
 }
 const proOpts = {
