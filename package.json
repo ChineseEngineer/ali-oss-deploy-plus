@@ -1,6 +1,6 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "easy deploy to oss",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com"
+    "url": "https://github.com/ChineseEngineer/ali-oss-deploy-plus"
   },
   "keywords": [
     "ali",
