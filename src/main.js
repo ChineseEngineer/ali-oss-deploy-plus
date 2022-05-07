@@ -42,7 +42,7 @@ class aliOssDeployPlus {
     this.proOpts = {...this.proOpts, ...proOpts}
     this.targetDir = proOpts.targetDir
     this.init(ossOpts)
-    log(`最大并发数：${this.proOpts.maxConcurrency}`)
+    divider(`最大并发数：${this.proOpts.maxConcurrency}`)
     this.promiseLimit = pLimit(this.proOpts.maxConcurrency) // 设置上传最大并发数
   }
 
@@ -95,11 +95,14 @@ class aliOssDeployPlus {
     divider(`开始上传文件 \nfiles::: ${files.length}个`)
     const uploadQueue = []
     files.forEach((i, index) => {
+      const projectPath = this.proOpts.PROJECT
+        ? `${this.proOpts.ENTRY}/${this.proOpts.PROJECT}/${i.name}`
+        : `${this.proOpts.ENTRY}/${i.name}`
       uploadQueue.push(
         this.promiseLimit(
           () => this.client
           .put(
-            `${this.proOpts.ENTRY}/${this.proOpts.PROJECT}/${i.name}`,
+            projectPath,
             `${this.proOpts.targetDir}/${i.name}`
           )
           .then(
@@ -152,7 +155,10 @@ class aliOssDeployPlus {
         }
       } else if (htmlFailedUploadQueue.length) {
         divider('上传html文件')
-        this.uploadFiles()
+        // 延迟2s更新 html文件
+        setTimeout(() => {
+          this.uploadFiles()
+        }, 2000)
       } else {
         divider(success(`当前版本发布成功：${currTime()} \ntotal：${this.resourceFiles.length}`));
         console.timeEnd('耗时')

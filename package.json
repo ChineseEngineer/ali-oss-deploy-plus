@@ -1,11 +1,13 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "easy deploy to oss",
-  "main": "lib/index.js",
+  "main": "lib/main.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "nodemon test.js"
+    "dev": "nodemon src/main.js",
+    "test": "node test.js",
+    "build": "rollup -c",
+    "publish": "npm publish"
   },
   "repository": {
     "type": "git",
@@ -21,11 +23,20 @@
   "dependencies": {
     "ali-oss": "^6.17.1",
     "chalk": "^4.1.2",
+    "core-js": "^2.6.12",
     "dayjs": "^1.11.1",
     "glob": "^8.0.1",
     "p-limit": "^3.1.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "nodemon": "^2.0.15",
+    "rollup": "^2.72.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }

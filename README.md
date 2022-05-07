@@ -19,11 +19,10 @@ const ossOpts = {
   internal: true, // 默认内网传输
 }
 const proOpts = {
-  ENTRY: '', // 项目入口
-  PROJECT: '', // 项目名称
-  targetDir: '', // 项目文件夹路径 ps: dist
-  maxRetryTimes: 3, // 上传失败重试次数 默认3
-  maxConcurrency: 100, // 上传最大并发数 默认100
+  projectPath: '', // oss 存放项目的路径
+  targetDir: '', // 编译后的项目文件夹路径 ps: dist
+  maxRetryTimes: 3, // 上传失败重试次数 默认 3
+  maxConcurrency: 100, // 上传最大并发数 默认 100
 }
 const aliDeploy = new aliOssDeployPlus({
   ossOpts,
