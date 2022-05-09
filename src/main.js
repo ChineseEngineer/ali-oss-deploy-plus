@@ -178,7 +178,6 @@ class aliOssDeployPlus {
       return fs.existsSync(path)
     } catch (e) {
       log(e)
-      // console.log(error(e.message))
     }
     return false
   }  
