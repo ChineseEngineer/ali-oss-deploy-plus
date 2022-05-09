@@ -1,12 +1,13 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "easy deploy to oss",
   "main": "lib/main.js",
   "scripts": {
     "dev": "nodemon src/main.js",
     "test": "node test.js",
     "build": "rollup -c",
+    "release": "node release.js",
     "publish": "node publish.js"
   },
   "repository": {
