@@ -13,6 +13,15 @@ const release = async () => {
   console.log(`版本发布...`);
   console.log(`Current version: ${chalk.yellow(curVersion)}`);
 
+
+  try {
+    console.log('npm run build ...')
+    execa('npm run build', { stdio: "inherit" })
+  } catch (error) {
+    throw new Error(error)
+  }
+
+
   const bumps = ["patch", "minor", "major", "prerelease"];
   const versions = {};
   bumps.forEach((b) => {
@@ -58,13 +67,6 @@ const release = async () => {
   if (yes) {
     console.log(chalk.green("yes"));
     console.log(chalk.yellow(version));
-
-    try {
-      console.log('npm run build ...')
-      execa('npm run build', { stdio: "inherit" })
-    } catch (error) {
-      throw new Error(error)
-    }
 
     // 修改package.json文件的version字段
     pkg.version = version
