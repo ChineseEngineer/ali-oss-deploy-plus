@@ -69,7 +69,7 @@ const release = async () => {
       try {
         fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pk, null, 2))
       } catch (error) {
-        console.log(error)
+        throw new Error(error)
       }
       console.log(chalk.yellow("版本发布提交成功"));
     } catch (e) {
