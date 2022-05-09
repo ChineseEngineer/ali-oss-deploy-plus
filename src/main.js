@@ -8,22 +8,22 @@ const dayjs = require('dayjs')
 
 
 const log = console.log
-const warning = (message) => chalk`{yellow WARNING:} ${message}`;
-const info = (message) => chalk`{magenta INFO:} ${message}`;
-const error = (message) => chalk`{red ERROR:} ${message}`;
-const success = (message) => chalk`{green SUCCESS:} ${message}`;
+const warning = (message) => chalk`{yellow WARNING:} ${message}`
+const info = (message) => chalk`{magenta INFO:} ${message}`
+const error = (message) => chalk`{red ERROR:} ${message}`
+const success = (message) => chalk`{green SUCCESS:} ${message}`
 
 const currTime = () => {
-  return dayjs().format("YYYY-MM-DD HH:mm:ss");
+  return dayjs().format("YYYY-MM-DD HH:mm:ss")
 }
 
 const divider = (msg) => {
   const str =
-    "\n*****************************************************************************************\n";
+    "\n*****************************************************************************************\n"
   if (msg) {
-    return console.log(`${str}\n${msg}\n${str}`);
+    return console.log(`${str}\n${msg}\n${str}`)
   }
-  return console.log(str);
+  return console.log(str)
 }
 
 class aliOssDeployPlus {

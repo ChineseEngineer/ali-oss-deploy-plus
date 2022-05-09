@@ -1,14 +1,14 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Deploy front-end projects to OSS",
   "main": "lib/main.js",
   "scripts": {
     "dev": "nodemon src/main.js",
     "test": "node test.js",
     "build": "rollup -c",
-    "release": "node release.js",
-    "publish": "node publish.js"
+    "res": "node release.js",
+    "pub": "node publish.js"
   },
   "repository": {
     "type": "git",

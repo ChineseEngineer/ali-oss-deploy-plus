@@ -16,7 +16,8 @@ const release = async () => {
 
   try {
     console.log('npm run build ...')
-    execa('npm run build', { stdio: "inherit" })
+    execa('npm run build')
+    console.log(chalk.green('Compiled successfully!'))
   } catch (error) {
     throw new Error(error)
   }
