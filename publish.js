@@ -4,6 +4,7 @@ const semver = require("semver");
 const inquirer = require("inquirer");
 const minimist = require("minimist");
 const execa = require("execa");
+const fs = require('fs');
 
 const pkg = require(path.resolve("package.json"));
 const curVersion = pkg.version;
@@ -62,6 +63,10 @@ const release = async () => {
       await execa("git", ["commit", "-m", "chore: pre release sync"], {
         stdio: "inherit",
       });
+
+      // 修改package.json文件的version字段
+      pkg.version = version
+      fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pk, null, 2))
       console.log(chalk.yellow("版本发布提交成功"));
     } catch (e) {
       // if it's a patch release, there may be no local deps to sync
