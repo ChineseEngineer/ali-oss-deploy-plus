@@ -13,7 +13,7 @@ const publish = async () => {
   console.log(`npm publish...`);
   console.log(`Current version: ${chalk.yellow(curVersion)}`);
 
-  execa("npm", ["publish"])
+  execa("npm", ["publish"], { stdio: "inherit" })
 };
 
 publish().catch((err) => {
