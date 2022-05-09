@@ -20,7 +20,7 @@ const ossOpts = {
 }
 const proOpts = {
   projectPath: '', // oss 存放项目的路径
-  targetDir: '', // 编译后的项目文件夹路径 ps: dist
+  currentProjectPath: '', // 当前发布项目的文件夹路径 ps: dist
   maxRetryTimes: 3, // 上传失败重试次数 默认 3
   maxConcurrency: 100, // 上传最大并发数 默认 100
 }

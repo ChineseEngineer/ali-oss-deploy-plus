@@ -35,12 +35,12 @@ class aliOssDeployPlus {
   retryTimes = 0 // 上传失败重试次数
   resourceFiles = []
   htmlFiles = []
-  targetDir = null
+  currentProjectPath = ''
   promiseLimit = null
   constructor (options) {
     const { ossOpts, proOpts } = options
     this.proOpts = {...this.proOpts, ...proOpts}
-    this.targetDir = proOpts.targetDir
+    this.currentProjectPath = proOpts.currentProjectPath
     this.init(ossOpts)
     divider(`最大并发数：${this.proOpts.maxConcurrency}`)
     this.promiseLimit = pLimit(this.proOpts.maxConcurrency) // 设置上传最大并发数
@@ -58,10 +58,10 @@ class aliOssDeployPlus {
 
   async start () {
     console.time('耗时')
-    if (!this.isExists(this.targetDir)) {
-      throw new Error(`不存在资源文件路径：${this.targetDir}`)
+    if (!this.isExists(this.currentProjectPath)) {
+      throw new Error(`不存在资源文件路径：${this.currentProjectPath}`)
     }
-    this.getResourceFiles(this.proOpts.targetDir).then(res => {
+    this.getResourceFiles(this.proOpts.currentProjectPath).then(res => {
       divider(`资源文件：${this.getFiles().length}\nhtml文件：${this.getFiles('html').length}`)
       this.uploadFiles(this.resourceFiles) // 开始上传资源文件
     }, err => {
@@ -100,7 +100,7 @@ class aliOssDeployPlus {
           () => this.client
           .put(
             `${this.proOpts.projectPath}/${i.name}`,
-            `${this.proOpts.targetDir}/${i.name}`
+            `${this.proOpts.currentProjectPath}/${i.name}`
           )
           .then(
             (res) => {
