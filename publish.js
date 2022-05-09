@@ -66,7 +66,11 @@ const release = async () => {
 
       // 修改package.json文件的version字段
       pkg.version = version
-      fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pk, null, 2))
+      try {
+        fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pk, null, 2))
+      } catch (error) {
+        console.log(error)
+      }
       console.log(chalk.yellow("版本发布提交成功"));
     } catch (e) {
       // if it's a patch release, there may be no local deps to sync
