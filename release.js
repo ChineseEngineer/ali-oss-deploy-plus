@@ -59,6 +59,13 @@ const release = async () => {
     console.log(chalk.green("yes"));
     console.log(chalk.yellow(version));
 
+    try {
+      console.log('npm run build ...')
+      execa('npm', ['run build'], { stdio: "inherit" })
+    } catch (error) {
+      throw new Error(error)
+    }
+
     // 修改package.json文件的version字段
     pkg.version = version
     try {

@@ -1,7 +1,7 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.1.6",
-  "description": "easy deploy to oss",
+  "version": "1.1.7",
+  "description": "Deploy front-end projects to OSS",
   "main": "lib/main.js",
   "scripts": {
     "dev": "nodemon src/main.js",
@@ -17,7 +17,8 @@
   "keywords": [
     "ali",
     "oss",
-    "deploy"
+    "deploy",
+    "projects"
   ],
   "author": "EthanTian",
   "license": "MIT",
