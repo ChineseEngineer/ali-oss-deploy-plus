@@ -58,19 +58,20 @@ const release = async () => {
   if (yes) {
     console.log(chalk.green("yes"));
     console.log(chalk.yellow(version));
+
+    // 修改package.json文件的version字段
+    pkg.version = version
+    try {
+      fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pkg, null, 2))
+    } catch (error) {
+      throw new Error(error)
+    }
+        
     try {
       await execa("git", ["add", "-A"], { stdio: "inherit" });
       await execa("git", ["commit", "-m", "chore: pre release sync"], {
         stdio: "inherit",
       });
-
-      // 修改package.json文件的version字段
-      pkg.version = version
-      try {
-        fs.writeFileSync(path.resolve(__dirname, './package.json'), JSON.stringify(pk, null, 2))
-      } catch (error) {
-        throw new Error(error)
-      }
       console.log(chalk.yellow("版本发布提交成功"));
     } catch (e) {
       // if it's a patch release, there may be no local deps to sync
