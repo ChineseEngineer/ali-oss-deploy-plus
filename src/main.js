@@ -65,15 +65,13 @@ class aliOssDeployPlus {
       divider(`资源文件：${this.getFiles().length}\nhtml文件：${this.getFiles('html').length}`)
       this.uploadFiles(this.resourceFiles) // 开始上传资源文件
     }, err => {
-      log(error(err))
+      this.stop(err)
     })
   }
 
   stop (msg) {
     if (msg) {
-      divider()
-      console.error(msg)
-      divider()
+      divider(error(msg))
     } else {
       divider(error(`抱歉，本次发版失败，请重新发布\n原因：已超过上传失败，最大重试次数 ${chalk.yellow(this.proOpts.maxRetryTimes)} 次\n已终止进程`))    
     }
@@ -120,7 +118,7 @@ class aliOssDeployPlus {
             },
             (err) => {
               if (this.retryTimes > this.proOpts.maxRetryTimes) {
-                this.stop();
+                this.stop()
               } else {
                 divider(`PUT 异常捕获===============${i.name}==========================BEGIN`)
                 log(err)
@@ -183,7 +181,7 @@ class aliOssDeployPlus {
     try {
       return fs.existsSync(path)
     } catch (e) {
-      log(e)
+      this.stop(e)
     }
     return false
   }  
@@ -220,7 +218,6 @@ class aliOssDeployPlus {
       )
     })
   }
-
 }
 
 module.exports = aliOssDeployPlus
