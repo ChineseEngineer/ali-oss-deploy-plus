@@ -57,6 +57,7 @@ class aliOssDeployPlus {
   }
 
   async start () {
+    divider(`Node version is: ${process.version}`)
     console.time('耗时')
     if (!this.isExists(this.currentProjectPath)) {
       this.stop(`不存在资源文件路径：${this.currentProjectPath}`)
