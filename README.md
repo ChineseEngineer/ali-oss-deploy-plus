@@ -1,6 +1,6 @@
 # 前端项目部署到 OSS
 
-## use
+## Usage
 
 ```bash
 # 安装

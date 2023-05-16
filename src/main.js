@@ -31,10 +31,13 @@ class aliOssDeployPlus {
   proOpts = {
     maxConcurrency: 100, // 最大并发数
     maxRetryTimes: 3, // 上传失败最多重试次数
+    isClean: false, // 是否清除历史文件
+    previousDays: 30, // 清除历史文件的天数
   }
   retryTimes = 0 // 上传失败重试次数
   resourceFiles = []
   htmlFiles = []
+  ossFiles = []
   currentProjectPath = ''
   promiseLimit = null
   constructor (options) {
@@ -74,7 +77,7 @@ class aliOssDeployPlus {
     if (msg) {
       divider(error(msg))
     } else {
-      divider(error(`抱歉，本次发版失败，请重新发布\n原因：已超过上传失败，最大重试次数 ${chalk.yellow(this.proOpts.maxRetryTimes)} 次\n已终止进程`))    
+      divider(error(`抱歉，本次发版失败，请重新发布\n原因：已超过上传失败，最大重试次数 ${chalk.yellow(this.proOpts.maxRetryTimes)} 次\n已终止进程`))
     }
     process.exit(1)
   }
@@ -164,6 +167,12 @@ class aliOssDeployPlus {
       } else {
         divider(success(`当前版本发布成功：${currTime()} \ntotal：${this.resourceFiles.length}`));
         console.timeEnd('耗时')
+
+        //  删除增量部署遗留垃圾文件
+        console.time('删除垃圾文件耗时')
+        if (this.proOpts.isClean) {
+          this.cleanHistoryFiles()
+        }
       }
     })
   }
@@ -172,11 +181,59 @@ class aliOssDeployPlus {
     log('执行删除动作...')
   }
 
+  cleanHistoryFiles () {
+    divider('执行清理历史文件动作...')
+    this.getOssFilesByPrefix().then(res => {
+      const files = this.ossFiles.filter(item => item.name.includes(this.proOpts.projectPath))
+      divider(`共有${files.length}个文件`)
+      const deleteQueue = []
+      files.forEach(i => {
+        const lastModified = new Date(i.lastModified)
+        const cutoffTime = new Date().getTime() - (1000 * 60 * 60 * 24) * this.proOpts.previousDays
+        if(!fs.existsSync(`${this.proOpts.currentProjectPath}/${i.name.replace(this.proOpts.projectPath, '')}`) && lastModified.getTime() < cutoffTime) {
+          log(`当前版本不存在：${i.name} [${lastModified.toLocaleString()}] 文件，准备删除...`)
+          deleteQueue.push(
+            this.promiseLimit(
+              () => this.client.delete(i.name).then(
+                (res) => {
+                  log(`[删除成功]: ${i.name}`)
+                  return `${i.name}`;
+                },
+                (err) => {
+                  log(`[删除失败]：${i.name}`)
+                  log(err)
+                }
+              )
+            )
+          )
+        }
+      })
+      Promise.all(deleteQueue).then(res => {
+        divider(`清理垃圾文件完成：${deleteQueue.length}个文件`)
+        console.timeEnd('删除垃圾文件耗时')
+      })
+    })
+  }
+
+  async getOssFilesByPrefix (marker) {
+    divider('获取oss文件列表...')
+    const result = await this.client.list({
+      prefix: this.proOpts.projectPath,
+      'max-keys': 1000,
+      marker
+    })
+
+    this.ossFiles = this.ossFiles.concat(result.objects)
+    if (result.isTruncated) {
+      await this.getOssFilesByPrefix(result.nextMarker)
+    }
+  }
+
   /**
    * 判断项目资源文件路径是否存在
-   * 
-   * @param {*} path 
-   * @returns 
+   *
+   * @param {*} path
+   * @returns
    */
    isExists (path) {
     try {
@@ -185,7 +242,7 @@ class aliOssDeployPlus {
       this.stop(e)
     }
     return false
-  }  
+  }
 
   /**
    * 获取指定目录的资源文件

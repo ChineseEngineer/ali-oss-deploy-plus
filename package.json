@@ -1,6 +1,6 @@
 {
   "name": "ali-oss-deploy-plus",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Deploy front-end projects to OSS",
   "main": "lib/main.js",
   "scripts": {
